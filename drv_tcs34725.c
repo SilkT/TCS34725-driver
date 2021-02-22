@@ -2,12 +2,6 @@
 #include "drv_tcs34725.h"
 #include "io_tcs34725.h"
 
-typedef enum {
-    false = 0,
-    true = 1 
-
-}bool;
-
 tcs34725_t tcs34725 = {
     ._isInitialised = false,
     ._integrationTime = TCS34725_INTEGRATIONTIME_2_4MS,
@@ -69,7 +63,7 @@ void tcs34725_disable() {
  */
 bool tcs34725_begin() {
   tcs34725._i2caddr = TCS34725_ADDRESS;
-  return init();
+  return tcs34725_init();
 }
 
 /*!
@@ -87,8 +81,8 @@ bool tcs34725_init() {
   tcs34725._isInitialised = true;
 
   /* Set default integration time and gain */
-  setIntegrationTime(tcs34725._integrationTime);
-  setGain(tcs34725._gain);
+  tcs34725_setIntegrationTime(tcs34725._integrationTime);
+  tcs34725_setGain(tcs34725._gain);
 
   /* Note: by default, the device is in power down mode on bootup */
   tcs34725_enable();
@@ -144,10 +138,10 @@ void tcs34725_getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
   if (!tcs34725._isInitialised)
     tcs34725_begin();
 
-  io_tcs34725._read(TCS34725_CDATAL, c, 2);
-  io_tcs34725._read(TCS34725_RDATAL, r, 2);
-  io_tcs34725._read(TCS34725_GDATAL, g, 2);
-  io_tcs34725._read(TCS34725_BDATAL, b, 2);
+  io_tcs34725._read(TCS34725_CDATAL, (uint8_t*)c, 2);
+  io_tcs34725._read(TCS34725_RDATAL, (uint8_t*)r, 2);
+  io_tcs34725._read(TCS34725_GDATAL, (uint8_t*)g, 2);
+  io_tcs34725._read(TCS34725_BDATAL, (uint8_t*)b, 2);
 
   /* Set a io_tcs34725._delay for the integration time */
   switch (tcs34725._integrationTime) {
@@ -384,7 +378,7 @@ uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b) {
  */
 void tcs34725_setInterrupt(bool i) {
   uint8_t r;
-  io_tcs34725._read(TCS34725_ENABLE, r, 1);
+  io_tcs34725._read(TCS34725_ENABLE, &r, 1);
   if (i) {
     r |= TCS34725_ENABLE_AIEN;
   } else {

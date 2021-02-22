@@ -2,6 +2,7 @@
 #define _IO_TCS34725_H_
 
 #include <stdint.h>
+#include "app_util_platform.h"
 
 typedef void (*writeReg)(uint8_t reg, uint8_t value);
 typedef void (*readRegs)(uint8_t reg, uint8_t *rvalue, uint8_t len);
@@ -16,7 +17,7 @@ typedef struct
 extern io_tcs34725_t io_tcs34725;
 
 void tcs34725_io_write(uint8_t reg, uint8_t value);
-void tcs32725_io_read(uint8_t reg, uint8_t *rvalue, uint8_t len);
-void tcs32725_io_delay(uint32_t milliseconds);
+void tcs34725_io_read(uint8_t reg, uint8_t *rvalue, uint8_t len);
+void tcs34725_io_delay(uint32_t milliseconds);
 
 #endif
