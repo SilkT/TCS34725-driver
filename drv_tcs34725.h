@@ -147,6 +147,7 @@ uint16_t tcs34725_calculateColorTemperature(uint16_t r, uint16_t g, uint16_t b);
 uint16_t tcs34725_calculateColorTemperature_dn40(uint16_t r, uint16_t g, uint16_t b,
                                                  uint16_t c);
 uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b);
+uint16_t tcs34725_calculatePAR(uint16_t w, uint16_t r, uint16_t g, uint16_t b);
 void tcs34725_setInterrupt(bool flag);
 void tcs34725_clearInterrupt();
 void tcs34725_setIntLimits(uint16_t l, uint16_t h);

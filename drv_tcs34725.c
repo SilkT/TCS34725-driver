@@ -5,10 +5,10 @@
 tcs34725_t tcs34725 = {
     ._isInitialised = false,
     ._integrationTime = TCS34725_INTEGRATIONTIME_2_4MS,
-    ._gain = TCS34725_GAIN_1X
-};
+    ._gain = TCS34725_GAIN_1X};
 
-void tcs34725_enable() {
+void tcs34725_enable()
+{
   io_tcs34725._write(TCS34725_ENABLE, TCS34725_ENABLE_PON);
   io_tcs34725._delay(3);
   io_tcs34725._write(TCS34725_ENABLE, TCS34725_ENABLE_PON | TCS34725_ENABLE_AEN);
@@ -18,7 +18,8 @@ void tcs34725_enable() {
     AEN triggers an automatic integration, so if a read RGBC is
     performed too quickly, the data is not yet valid and all 0's are
     returned */
-  switch (tcs34725._integrationTime) {
+  switch (tcs34725._integrationTime)
+  {
   case TCS34725_INTEGRATIONTIME_2_4MS:
     io_tcs34725._delay(3);
     break;
@@ -43,7 +44,8 @@ void tcs34725_enable() {
 /*!
  *  @brief  Disables the device (putting it in lower power sleep mode)
  */
-void tcs34725_disable() {
+void tcs34725_disable()
+{
   /* Turn the device off to save power */
   uint8_t reg = 0;
   io_tcs34725._read(TCS34725_ENABLE, &reg, 1);
@@ -61,7 +63,8 @@ void tcs34725_disable() {
  *  @brief  Initializes I2C and configures the sensor
  *  @return True if initialization was successful, otherwise false.
  */
-bool tcs34725_begin() {
+bool tcs34725_begin()
+{
   tcs34725._i2caddr = TCS34725_ADDRESS;
   return tcs34725_init();
 }
@@ -70,12 +73,13 @@ bool tcs34725_begin() {
  *  @brief  Part of begin
  *  @return True if initialization was successful, otherwise false.
  */
-bool tcs34725_init() {
-
+bool tcs34725_init()
+{
   /* Make sure we're actually connected */
   uint8_t x;
   io_tcs34725._read(TCS34725_ID, &x, 1);
-  if ((x != 0x44) && (x != 0x10)) {
+  if ((x != 0x44) && (x != 0x10))
+  {
     return false;
   }
   tcs34725._isInitialised = true;
@@ -95,7 +99,8 @@ bool tcs34725_init() {
  *  @param  it
  *          Integration Time
  */
-void tcs34725_setIntegrationTime(tcs34725IntegrationTime_t it) {
+void tcs34725_setIntegrationTime(tcs34725IntegrationTime_t it)
+{
   if (!tcs34725._isInitialised)
     tcs34725_begin();
 
@@ -111,7 +116,8 @@ void tcs34725_setIntegrationTime(tcs34725IntegrationTime_t it) {
  *  @param  gain
  *          Gain (sensitivity to light)
  */
-void tcs34725_setGain(tcs34725Gain_t gain) {
+void tcs34725_setGain(tcs34725Gain_t gain)
+{
   if (!tcs34725._isInitialised)
     tcs34725_begin();
 
@@ -134,17 +140,19 @@ void tcs34725_setGain(tcs34725Gain_t gain) {
  *          Clear channel value
  */
 void tcs34725_getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
-                                   uint16_t *c) {
+                         uint16_t *c)
+{
   if (!tcs34725._isInitialised)
     tcs34725_begin();
 
-  io_tcs34725._read(TCS34725_CDATAL, (uint8_t*)c, 2);
-  io_tcs34725._read(TCS34725_RDATAL, (uint8_t*)r, 2);
-  io_tcs34725._read(TCS34725_GDATAL, (uint8_t*)g, 2);
-  io_tcs34725._read(TCS34725_BDATAL, (uint8_t*)b, 2);
+  io_tcs34725._read(TCS34725_CDATAL, (uint8_t *)c, 2);
+  io_tcs34725._read(TCS34725_RDATAL, (uint8_t *)r, 2);
+  io_tcs34725._read(TCS34725_GDATAL, (uint8_t *)g, 2);
+  io_tcs34725._read(TCS34725_BDATAL, (uint8_t *)b, 2);
 
   /* Set a io_tcs34725._delay for the integration time */
-  switch (tcs34725._integrationTime) {
+  switch (tcs34725._integrationTime)
+  {
   case TCS34725_INTEGRATIONTIME_2_4MS:
     io_tcs34725._delay(3);
     break;
@@ -180,7 +188,8 @@ void tcs34725_getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
  *          Clear channel value
  */
 void tcs34725_getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b,
-                                          uint16_t *c) {
+                                uint16_t *c)
+{
   if (!tcs34725._isInitialised)
     tcs34725_begin();
 
@@ -198,13 +207,15 @@ void tcs34725_getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b,
  *  @param  *b
  *          Blue value normalized to 0-255
  */
-void tcs34725_getRGB(float *r, float *g, float *b) {
+void tcs34725_getRGB(float *r, float *g, float *b)
+{
   uint16_t red, green, blue, clear;
   tcs34725_getRawData(&red, &green, &blue, &clear);
   uint32_t sum = clear;
 
   // Avoid divide by zero errors ... if clear = 0 return black
-  if (clear == 0) {
+  if (clear == 0)
+  {
     *r = *g = *b = 0;
     return;
   }
@@ -225,13 +236,15 @@ void tcs34725_getRGB(float *r, float *g, float *b) {
  *  @return Color temperature in degrees Kelvin
  */
 uint16_t tcs34725_calculateColorTemperature(uint16_t r, uint16_t g,
-                                                      uint16_t b) {
+                                            uint16_t b)
+{
   float X, Y, Z; /* RGB to XYZ correlation      */
   float xc, yc;  /* Chromaticity co-ordinates   */
   float n;       /* McCamy's formula            */
   float cct;
 
-  if (r == 0 && g == 0 && b == 0) {
+  if (r == 0 && g == 0 && b == 0)
+  {
     return 0;
   }
 
@@ -272,14 +285,16 @@ uint16_t tcs34725_calculateColorTemperature(uint16_t r, uint16_t g,
  *  @return Color temperature in degrees Kelvin
  */
 uint16_t tcs34725_calculateColorTemperature_dn40(uint16_t r,
-                                                           uint16_t g,
-                                                           uint16_t b,
-                                                           uint16_t c) {
+                                                 uint16_t g,
+                                                 uint16_t b,
+                                                 uint16_t c)
+{
   uint16_t r2, b2; /* RGB values minus IR component */
   uint16_t sat;    /* Digital saturation level */
   uint16_t ir;     /* Inferred IR content */
 
-  if (c == 0) {
+  if (c == 0)
+  {
     return 0;
   }
 
@@ -295,10 +310,13 @@ uint16_t tcs34725_calculateColorTemperature_dn40(uint16_t r,
    *     occur before analog saturation. Digital saturation occurs when
    *     the count reaches 65535.
    */
-  if ((256 - tcs34725._integrationTime) > 63) {
+  if ((256 - tcs34725._integrationTime) > 63)
+  {
     /* Track digital saturation */
     sat = 65535;
-  } else {
+  }
+  else
+  {
     /* Track analog saturation */
     sat = 1024 * (256 - tcs34725._integrationTime);
   }
@@ -320,13 +338,15 @@ uint16_t tcs34725_calculateColorTemperature_dn40(uint16_t r,
    *     ignored, but <= 150ms you should calculate the 75% saturation
    *     level to avoid this problem.
    */
-  if ((256 - tcs34725._integrationTime) <= 63) {
+  if ((256 - tcs34725._integrationTime) <= 63)
+  {
     /* Adjust sat to 75% to avoid analog saturation if atime < 153.6ms */
     sat -= sat / 4;
   }
 
   /* Check for saturation and mark the sample as invalid if true */
-  if (c >= sat) {
+  if (c >= sat)
+  {
     return 0;
   }
 
@@ -338,7 +358,8 @@ uint16_t tcs34725_calculateColorTemperature_dn40(uint16_t r,
   r2 = r - ir;
   b2 = b - ir;
 
-  if (r2 == 0) {
+  if (r2 == 0)
+  {
     return 0;
   }
 
@@ -361,7 +382,8 @@ uint16_t tcs34725_calculateColorTemperature_dn40(uint16_t r,
  *          Blue value
  *  @return Lux value
  */
-uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b) {
+uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b)
+{
   float illuminance;
 
   /* This only uses RGB ... how can we integrate clear or calculate lux */
@@ -372,16 +394,48 @@ uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b) {
 }
 
 /*!
+ * @brief Converts the raw RGBW values to Photosynthetically Active Radiation(PAR)
+ * Formula is extracted from such papers as "Light Meter for Measuring Photosynthetically Active Radiation"
+ * by Alexander Kutschera1, Jacob J. Lamb (scirp.org/journal/paperinformation.aspx?paperid=88576)
+ * and "MultispeQ Beta: a tool for large-scale plant phenotyping connected to the open PhotosynQ network"
+ * by Sebastian Kuhlgert, Greg Austic, Robert Zegarac, Isaac Osei-Bonsu, Donghee Hoh, Martin I. Chilvers,
+ * Mitchell G. Roth, Kevin Bi, Dan TerAvest, Prabode Weebadde and David M. Kramer
+ * (https://royalsocietypublishing.org/doi/pdf/10.1098/rsos.160592)
+ *  @param  w
+ *          White value
+ *  @param  r
+ *          Red value
+ *  @param  g
+ *          Green value
+ *  @param  b
+ *          Blue value
+ *  @return PAR value
+ */
+
+uint16_t tcs34725_calculatePAR(uint16_t w, uint16_t r, uint16_t g, uint16_t b)
+{
+  float par_value;
+
+  par_value = (0.65847F * w) + (-1.60537F * r) + (-2.30216F * g) + (-0.50019 * b);
+
+  return (uint16_t)par_value;
+}
+
+/*!
  *  @brief  Sets inerrupt for TCS34725
  *  @param  i
  *          Interrupt (True/False)
  */
-void tcs34725_setInterrupt(bool i) {
+void tcs34725_setInterrupt(bool i)
+{
   uint8_t r;
   io_tcs34725._read(TCS34725_ENABLE, &r, 1);
-  if (i) {
+  if (i)
+  {
     r |= TCS34725_ENABLE_AIEN;
-  } else {
+  }
+  else
+  {
     r &= ~TCS34725_ENABLE_AIEN;
   }
   io_tcs34725._write(TCS34725_ENABLE, r);
@@ -390,9 +444,10 @@ void tcs34725_setInterrupt(bool i) {
 /*!
  *  @brief  Clears inerrupt for TCS34725
  */
-void tcs34725_clearInterrupt() {
+void tcs34725_clearInterrupt()
+{
   io_tcs34725._write(0x66, 0);
-} 
+}
 
 /*!
  *  @brief  Sets inerrupt limits
@@ -401,7 +456,8 @@ void tcs34725_clearInterrupt() {
  *  @param  high
  *          High limit
  */
-void tcs34725_setIntLimits(uint16_t low, uint16_t high) {
+void tcs34725_setIntLimits(uint16_t low, uint16_t high)
+{
   io_tcs34725._write(0x04, low & 0xFF);
   io_tcs34725._write(0x05, low >> 8);
   io_tcs34725._write(0x06, high & 0xFF);
