@@ -1,0 +1,61 @@
+{
+    "env": {
+        "nrfSDK":"C:\\Work\\nRF5_SDK_17.0.2_d674dde"
+    },
+    "configurations": [
+        {
+            "name": "ARMGCC",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/pca10056/s140/config",
+                "${workspaceFolder}/pca10056/s140",
+                "${workspaceFolder}/freeRTOS",
+                "${nrfSDK}/components/**",
+                "${nrfSDK}/components",
+                "${nrfSDK}/components/libraries/experimental_memobj",
+                "${nrfSDK}/components/libraries/experimental_section_vars",
+                "${nrfSDK}/modules/nrfx/mdk",
+                "${nrfSDK}/modules/nrfx/hal",
+                "${nrfSDK}/components/libraries/balloc",
+                "${nrfSDK}/components/libraries/experimental_log",
+                "${nrfSDK}/components/libraries/experimental_log/src",
+                "${nrfSDK}/components/libraries/delay",
+                "${nrfSDK}/integration/nrfx",
+                "${nrfSDK}/components/libraries/bsp",
+                "${nrfSDK}/components/drivers_nrf/nrf_soc_nosd",
+                "${nrfSDK}/components/libraries/strerror",
+                "${nrfSDK}/components/boards",
+                "${nrfSDK}/components/toolchain/cmsis/include",
+                "${nrfSDK}/modules/nrfx",
+                "${nrfSDK}/components/libraries/util",
+                "${nrfSDK}/components/libraries/fifo",
+                "${nrfSDK}/components/libraries/uart",
+                "${nrfSDK}/integration/nrfx/legacy",
+                "${nrfSDK}/components/libraries/delay",
+                "${nrfSDK}/modules/nrfx/drivers/include",
+                "${nrfSDK}/external/freertos",
+                "${nrfSDK}/external/freertos/source/include",
+                "${nrfSDK}/external/freertos/portable/CMSIS/nrf52",
+                "${nrfSDK}/external/freertos/portable/GCC/nrf52/",
+                "${nrfSDK}/external/freertos/config"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "BOARD_PCA10040",
+                "BSP_DEFINES_ONLY",
+                "CONFIG_GPIO_AS_PINRESET",
+                "FLOAT_ABI_HARD",
+                "NRF52840_XXAA",
+                "DCONFIG_NFCT_PINS_AS_GPIOS"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2020-q4-major\\bin\\arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

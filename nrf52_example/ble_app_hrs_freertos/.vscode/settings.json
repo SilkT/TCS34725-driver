@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "rtos_taskconfig.h": "c",
+        "io_tcs34725.h": "c",
+        "nrf_log_ctrl.h": "c",
+        "nrf_log_default_backends.h": "c",
+        "drv_tcs34725.h": "c"
+    }
+}
