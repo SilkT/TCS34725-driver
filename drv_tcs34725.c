@@ -395,12 +395,7 @@ uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b)
 
 /*!
  * @brief Converts the raw RGBW values to Photosynthetically Active Radiation(PAR)
- * Formula is extracted from such papers as "Light Meter for Measuring Photosynthetically Active Radiation"
- * by Alexander Kutschera1, Jacob J. Lamb (scirp.org/journal/paperinformation.aspx?paperid=88576)
- * and "MultispeQ Beta: a tool for large-scale plant phenotyping connected to the open PhotosynQ network"
- * by Sebastian Kuhlgert, Greg Austic, Robert Zegarac, Isaac Osei-Bonsu, Donghee Hoh, Martin I. Chilvers,
- * Mitchell G. Roth, Kevin Bi, Dan TerAvest, Prabode Weebadde and David M. Kramer
- * (https://royalsocietypublishing.org/doi/pdf/10.1098/rsos.160592)
+ * https://ledgardener.com/forum/viewtopic.php?t=5748
  *  @param  w
  *          White value
  *  @param  r
@@ -414,9 +409,12 @@ uint16_t tcs34725_calculateLux(uint16_t r, uint16_t g, uint16_t b)
 
 uint16_t tcs34725_calculatePAR(uint16_t w, uint16_t r, uint16_t g, uint16_t b)
 {
+  float cf_lux = 2.0;
+  float cf_par = 0.015;
   float par_value;
-
-  par_value = (0.65847F * w) + (-1.60537F * r) + (-2.30216F * g) + (-0.50019 * b);
+  float luminance = (-0.32466 * r) + (1.57837 * g) + (-0.73191 * b);
+  float lux = luminance * cf_lux;
+  par_value = lux*cf_par;
 
   return (uint16_t)par_value;
 }
@@ -462,4 +460,57 @@ void tcs34725_setIntLimits(uint16_t low, uint16_t high)
   io_tcs34725._write(0x05, low >> 8);
   io_tcs34725._write(0x06, high & 0xFF);
   io_tcs34725._write(0x07, high >> 8);
+}
+
+
+/*!
+ *  @brief  Initializes a struct for flicker detection
+ *  @param  flicker_struct 
+ *          a structure for holding of information, you must initialize a structure
+ *          for each color channel you want to monitor for flicker
+ *  @param  intensity_treschold
+ *          How much intensity must change in order to detect it as flicker
+ *  @param  count_treschold
+ *          How many of that changes need to happen to set the flicker flag to true
+ *          
+ *          Flicker detection is not supported by hardware so it is rather slow 
+ *          and can't detect high frequency light flickering as it only checks for changes
+ *          in intensity of light in selected channel on each reading.
+ */
+void tcs34725_flickerInit(tcs34725Flicker_t * flicker_struct, uint16_t intensity_treschold, uint8_t count_treschold)
+{
+  flicker_struct->_count_treschold=count_treschold;
+  flicker_struct->_intensity_treschold=intensity_treschold;
+}
+
+/*!
+ *  @brief  Checks for flicker on selected color channel
+ *  @param  flicker_struct 
+ *          a structure for holding of information, you must initialize a structure
+ *          for each color channel you want to monitor for flicker
+ *  @param  channel_intensity
+ *          Provide the raw data according to channel you are currently checking
+ */
+bool tcs34725_checkFlicker(tcs34725Flicker_t * flicker_struct, uint16_t channel_intensity)
+{
+  bool result;
+  if((channel_intensity>(flicker_struct->_lastValue+flicker_struct->_intensity_treschold)) ||
+      (channel_intensity<(flicker_struct->_lastValue-flicker_struct->_intensity_treschold)))
+  {
+    flicker_struct->_flicks_count++;
+  }
+  else if(flicker_struct->_flicks_count!=0){
+   flicker_struct->_flicks_count--;
+  }
+  else flicker_struct->_did_flick = false;
+  flicker_struct->_lastValue = channel_intensity;
+  if(flicker_struct->_flicks_count>=flicker_struct->_count_treschold)
+  {
+    flicker_struct->_flicks_count=flicker_struct->_count_treschold;
+    result = true;
+    flicker_struct->_did_flick = true;
+  }
+  else if (flicker_struct->_did_flick)
+    result = true;
+  return result;
 }
