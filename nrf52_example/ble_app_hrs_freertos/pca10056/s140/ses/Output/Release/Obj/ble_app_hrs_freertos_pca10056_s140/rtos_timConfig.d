@@ -1,9 +1,12 @@
-Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/io_tcs34725.o: \
- C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\TCS34725-driver\io_tcs34725.c \
- C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\TCS34725-driver\io_tcs34725.h \
+Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/rtos_timConfig.o: \
+ C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freeRTOS\rtos_timConfig.c \
+ C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freeRTOS\rtos_timConfig.h \
+ ../../../../../../external/freertos/source/include/FreeRTOS.h \
+ C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/stddef.h \
+ C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/__crossworks.h \
  C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/stdint.h \
- ../../../../../../components/libraries/util/app_util_platform.h \
- ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
+ ../../../config/FreeRTOSConfig.h \
+ ../../../../../../components/softdevice/s140/headers/nrf_soc.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
  ../../../../../../modules/nrfx/mdk/nrf52840.h \
  ../../../../../../components/toolchain/cmsis/include/core_cm4.h \
@@ -16,26 +19,20 @@ Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/io_tcs34725.o: \
  ../../../../../../modules/nrfx/mdk/nrf51_to_nrf52840.h \
  ../../../../../../modules/nrfx/mdk/nrf52_to_nrf52840.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
- ../../../../../../components/softdevice/s140/headers/nrf_soc.h \
  ../../../../../../components/softdevice/s140/headers/nrf_svc.h \
  ../../../../../../components/softdevice/s140/headers/nrf_error.h \
  ../../../../../../components/softdevice/s140/headers/nrf_error_soc.h \
+ ../../../../../../components/libraries/util/app_util_platform.h \
+ ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/softdevice/s140/headers/nrf_nvic.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/util/app_error.h \
  C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/stdio.h \
- C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/__crossworks.h \
  C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/stdbool.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s140/headers/nrf_error.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
- c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freertos\rtos_taskconfig.h \
- c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\tcs34725-driver\drv_tcs34725.h \
- c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\tcs34725-driver\io_tcs34725.h \
- ../../../../../../external/freertos/source/include/FreeRTOS.h \
- C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/stddef.h \
- ../../../config/FreeRTOSConfig.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../external/freertos/source/include/projdefs.h \
  ../../../../../../external/freertos/source/include/portable.h \
@@ -65,8 +62,10 @@ Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/io_tcs34725.o: \
  ../../../../../../components/libraries/log/nrf_log_instance.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
- C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\TCS34725-driver\drv_tcs34725.h \
- ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
+ ../../../../../../external/freertos/source/include/timers.h \
+ ../../../../../../external/freertos/source/include/task.h \
+ ../../../../../../components/boards/boards.h \
+ ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
@@ -82,9 +81,6 @@ Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/io_tcs34725.o: \
  ../../../../../../components/softdevice/s140/headers/nrf_sd_def.h \
  ../../../../../../components/softdevice/s140/headers/nrf_soc.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- ../../../../../../modules/nrfx/drivers/include/nrfx_twim.h \
- ../../../../../../modules/nrfx/drivers/include/nrfx_twi_twim.h \
- ../../../../../../modules/nrfx/hal/nrf_twim.h \
- ../../../../../../modules/nrfx/drivers/include/nrfx_twi.h \
- ../../../../../../modules/nrfx/hal/nrf_twi.h \
- ../../../../../../components/libraries/delay/nrf_delay.h
+ ../../../../../../components/boards/pca10056.h \
+ ../../../../../../components/libraries/timer/app_timer.h \
+ ../../../../../../components/libraries/util/app_error.h

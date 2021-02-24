@@ -2,6 +2,7 @@
 #include "drv_tcs34725.h"
 
 #include "nrf_drv_twi.h"
+#include "nrf_delay.h"
 
 /* TWI instance ID. */
 #define TWI_INSTANCE_ID 0
@@ -32,6 +33,7 @@ void tcs34725_io_write(uint8_t reg, uint8_t value)
             err_code = nrf_drv_twi_tx(&m_twi, TCS34725_ADDRESS, &reg_to_write, sizeof(uint8_t), true);
             err_code = nrf_drv_twi_tx(&m_twi, TCS34725_ADDRESS, &val_to_write, sizeof(uint8_t), true);
             xSemaphoreGive(*io_tcs34725.semaphore_mutex_handle);
+            if(err_code!=0)APP_ERROR_HANDLER(err_code);
         }
     }
 #else
@@ -53,6 +55,7 @@ void tcs34725_io_read(uint8_t reg, uint8_t *rvalue, uint8_t len)
             err_code = nrf_drv_twi_tx(&m_twi, TCS34725_ADDRESS, &reg_to_write, sizeof(uint8_t), true);
             err_code = nrf_drv_twi_rx(&m_twi, TCS34725_ADDRESS, rvalue, sizeof(uint8_t) * len);
             xSemaphoreGive(*io_tcs34725.semaphore_mutex_handle);
+            if(err_code!=0)APP_ERROR_HANDLER(err_code);
         }
     }
 #else
@@ -64,5 +67,5 @@ void tcs34725_io_read(uint8_t reg, uint8_t *rvalue, uint8_t len)
 void tcs34725_io_delay(uint32_t milliseconds)
 {
     // implement delay function for your platform here
-    nrfx_coredep_delay_us(milliseconds * 1000);
+    nrf_delay_ms(milliseconds);
 }

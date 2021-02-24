@@ -61,16 +61,6 @@ Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/main.o: \
  ../../../../../../components/libraries/util/app_util_platform.h \
  ../../../../../../components/softdevice/s140/headers/nrf_nvic.h \
  ../../../../../../components/libraries/util/app_error.h \
- ../../../../../../components/ble/peer_manager/peer_manager.h \
- ../../../../../../components/softdevice/s140/headers/ble_gap.h \
- ../../../../../../components/ble/peer_manager/peer_manager_types.h \
- ../../../../../../components/softdevice/s140/headers/ble_hci.h \
- ../../../../../../components/ble/common/ble_gatt_db.h \
- ../../../../../../components/softdevice/s140/headers/ble_gattc.h \
- ../../../../../../components/ble/peer_manager/peer_database.h \
- ../../../../../../components/ble/peer_manager/peer_manager_internal.h \
- ../../../../../../components/ble/peer_manager/peer_manager_handler.h \
- ../../../../../../components/ble/peer_manager/peer_manager.h \
  ../../../../../../components/libraries/bsp/bsp_btn_ble.h \
  ../../../../../../components/libraries/bsp/bsp.h \
  ../../../../../../components/boards/boards.h \
@@ -110,17 +100,17 @@ Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/main.o: \
  ../../../../../../modules/nrfx/drivers/include/nrfx_clock.h \
  ../../../../../../modules/nrfx/hal/nrf_clock.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_power_clock.h \
- ../../../../../../components/ble/nrf_ble_gatt/nrf_ble_gatt.h \
- ../../../../../../components/softdevice/s140/headers/ble_gatt.h \
- ../../../../../../components/ble/nrf_ble_qwr/nrf_ble_qwr.h \
- ../../../../../../components/ble/common/ble_srv_common.h \
- ../../../../../../components/softdevice/s140/headers/ble_types.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_twim.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_twi_twim.h \
  ../../../../../../modules/nrfx/hal/nrf_twim.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_twi.h \
  ../../../../../../modules/nrfx/hal/nrf_twi.h \
+ C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freeRTOS/rtos_taskConfig.h \
+ c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\tcs34725-driver\drv_tcs34725.h \
+ c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\tcs34725-driver\io_tcs34725.h \
+ c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freertos\rtos_taskconfig.h \
+ c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\tcs34725-driver\drv_tcs34725.h \
  ../../../../../../components/libraries/log/nrf_log.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  ../../../../../../components/libraries/strerror/nrf_strerror.h \
@@ -128,17 +118,9 @@ Output/Release/Obj/ble_app_hrs_freertos_pca10056_s140/main.o: \
  ../../../../../../components/libraries/log/nrf_log_instance.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
- ../../../../../../components/libraries/log/nrf_log_ctrl.h \
- ../../../../../../components/libraries/log/src/nrf_log_ctrl_internal.h \
- ../../../../../../components/libraries/log/nrf_log_backend_interface.h \
- ../../../../../../components/libraries/memobj/nrf_memobj.h \
- C\:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 5.40/include/stdlib.h \
- ../../../../../../components/libraries/balloc/nrf_balloc.h \
- ../../../../../../components/libraries/log/nrf_log_default_backends.h \
+ C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freeRTOS/rtos_timConfig.h \
  C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\periph_config/config_twi.h \
  C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\TCS34725-driver/drv_tcs34725.h \
- C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\TCS34725-driver/io_tcs34725.h \
- c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\freertos\rtos_taskconfig.h \
- c\:\work\nrf5_sdk_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\tcs34725-driver\drv_tcs34725.h \
  C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\app_tcs34725.h \
- ../../../config/../TCS34725-driver/drv_tcs34725.h
+ ../../../config/../TCS34725-driver/drv_tcs34725.h \
+ C\:\Work\nRF5_SDK_17.0.2_d674dde\projects\practice\ble_app_hrs_freertos\app_logger.h

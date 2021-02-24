@@ -145,15 +145,7 @@ int main(void)
     timers_init();
     buttons_leds_init();
     application_timers_start();
-
-    twi_init();
-    mutexInit(NULL, &twiSemaphore);
-    tcs34725_io_set_mutex(&twiSemaphore);
-
-    if(!tcs34725_begin()){
-    NRF_LOG_INFO("tcs34725 init failed");
-    } else NRF_LOG_INFO("tcs34725 init succes");
-    
+    twi_init();  
 
     NRF_LOG_INFO("FreeRTOS template started.");
     // Start FreeRTOS scheduler.

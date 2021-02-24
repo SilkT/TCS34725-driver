@@ -135,6 +135,15 @@ typedef struct drv_tcs34725
     tcs34725IntegrationTime_t _integrationTime;
 }tcs34725_t;
 
+typedef struct tcs34725_flicker
+{
+    uint8_t _count_treschold;
+    uint16_t _intensity_treschold;
+    uint8_t _flicks_count;
+    uint16_t _lastValue;
+    bool _did_flick;
+}tcs34725Flicker_t;
+
 bool tcs34725_begin();
 bool tcs34725_init();
 
@@ -153,5 +162,8 @@ void tcs34725_clearInterrupt();
 void tcs34725_setIntLimits(uint16_t l, uint16_t h);
 void tcs34725_enable();
 void tcs34725_disable();
+
+void tcs34725_flickerInit(tcs34725Flicker_t * flicker_struct, uint16_t intensity_treschold, uint8_t count_treschold);
+bool tcs34725_checkFlicker(tcs34725Flicker_t * flicker_struct, uint16_t channel_intensity);
 
 #endif

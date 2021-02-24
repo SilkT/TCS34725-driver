@@ -1,5 +1,6 @@
 #include "rtos_timConfig.h"
 #include "boards.h"
+#include "app_timer.h"
 
 static TimerHandle_t m_base_timer;                               /**< Definition of battery timer. */
 
