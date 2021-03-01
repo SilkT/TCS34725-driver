@@ -9,6 +9,7 @@ TaskHandle_t m_tcs34725_thread;
 void tcs34725_thread(void * arg)
 {
   UNUSED_PARAMETER(arg);
+  tcs34725_setIntegrationTime(TCS34725_INTEGRATIONTIME_2_4MS);
   mutexInit(NULL, &twiSemaphore);
   tcs34725_io_set_mutex(&twiSemaphore);  
   if(!tcs34725_begin()){

@@ -21,8 +21,9 @@ void tcs34725_io_set_mutex(SemaphoreHandle_t *semaphore_mutex_handle)
 
 void tcs34725_io_write(uint8_t reg, uint8_t value)
 {
-    uint8_t reg_to_write = TCS34725_COMMAND_BIT | reg;
-    uint8_t val_to_write = value & 0xFF;
+    uint8_t data_to_write[2];
+    data_to_write[0] = TCS34725_COMMAND_BIT | reg;
+    data_to_write[1] = value & 0xFF;
     //implement writing function for your platform here
     ret_code_t err_code;
 #ifdef IO_USE_RTOS_MUTEX
@@ -30,8 +31,7 @@ void tcs34725_io_write(uint8_t reg, uint8_t value)
     {
         if (xSemaphoreTake(*io_tcs34725.semaphore_mutex_handle, TWI_MUTEX_TIMEOUT_TICKS))
         {
-            err_code = nrf_drv_twi_tx(&m_twi, TCS34725_ADDRESS, &reg_to_write, sizeof(uint8_t), true);
-            err_code = nrf_drv_twi_tx(&m_twi, TCS34725_ADDRESS, &val_to_write, sizeof(uint8_t), true);
+            err_code = nrf_drv_twi_tx(&m_twi, TCS34725_ADDRESS, data_to_write, sizeof(uint8_t)*2, true);
             xSemaphoreGive(*io_tcs34725.semaphore_mutex_handle);
             if(err_code!=0)APP_ERROR_HANDLER(err_code);
         }
